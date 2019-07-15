@@ -21,6 +21,6 @@ public class GLTextureView extends MyEGLSurfaceView{
 
     public GLTextureView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setRender(new TextureRenderWithVBO(context));
+        setRender(new TextureRenderWithVBOAndFBO(context));
     }
 }
