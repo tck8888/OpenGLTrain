@@ -1,0 +1,41 @@
+{
+  "stringTable": {
+    "0": "D:/c_project/OpenGLTrain/opengl-camera/app/.externalNativeBuild/cmake/release/x86_64",
+    "1": "--target=x86_64-none-linux-android21 --gcc-toolchain=C:/android-sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=C:/android-sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dnative_lib_EXPORTS -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -Wa,--noexecstack -Wformat -Werror=format-security -O2 -DNDEBUG -fPIC"
+  },
+  "buildFiles": [
+    "C:\\android-sdk\\ndk-bundle\\build\\cmake\\platforms.cmake",
+    "C:\\android-sdk\\ndk-bundle\\build\\cmake\\android.toolchain.cmake",
+    "D:\\c_project\\OpenGLTrain\\opengl-camera\\app\\src\\main\\cpp\\CMakeLists.txt"
+  ],
+  "cleanCommands": [
+    "C:\\android-sdk\\cmake\\3.10.2.4988404\\bin\\cmake.exe --build \"D:\\c_project\\OpenGLTrain\\opengl-camera\\app\\.externalNativeBuild\\cmake\\release\\x86_64\" --target clean"
+  ],
+  "libraries": {
+    "native-lib-Release-x86_64": {
+      "buildCommand": "C:\\android-sdk\\cmake\\3.10.2.4988404\\bin\\cmake.exe --build \"D:\\c_project\\OpenGLTrain\\opengl-camera\\app\\.externalNativeBuild\\cmake\\release\\x86_64\" --target native-lib",
+      "buildType": "release",
+      "toolchain": "2048143322",
+      "abi": "x86_64",
+      "artifactName": "native-lib",
+      "files": [
+        {
+          "src": "D:\\c_project\\OpenGLTrain\\opengl-camera\\app\\src\\main\\cpp\\native-lib.cpp",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        }
+      ],
+      "headers": [],
+      "output": "D:\\c_project\\OpenGLTrain\\opengl-camera\\app\\build\\intermediates\\cmake\\release\\obj\\x86_64\\libnative-lib.so"
+    }
+  },
+  "toolchains": {
+    "2048143322": {
+      "cppCompilerExecutable": "C:\\android-sdk\\ndk-bundle\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe"
+    }
+  },
+  "cFileExtensions": [],
+  "cppFileExtensions": [
+    "cpp"
+  ]
+}
