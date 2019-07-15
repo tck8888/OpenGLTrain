@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import com.tck.openglcamera.egl.WLEGLSurfaceView;
 
 
-public class WlCameraView extends WLEGLSurfaceView {
+public class  WlCameraView extends WLEGLSurfaceView {
 
     private WlCameraRender wlCameraRender;
     private WlCamera wlCamera;
