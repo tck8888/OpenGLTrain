@@ -62,6 +62,14 @@ public class TextureRenderWithVBOAndFBO2 implements MyEGLSurfaceView.MyRender {
     private int umatrix;
     private float[] matrix = new float[16];
 
+
+
+    private OnRenderCreateListener onRenderCreateListener;
+
+    private int width;
+    private int height;
+
+
     public TextureRenderWithVBOAndFBO2(Context context) {
         this.context = context;
         fboRender = new FboRender(context);
@@ -79,6 +87,12 @@ public class TextureRenderWithVBOAndFBO2 implements MyEGLSurfaceView.MyRender {
                 .put(fragmentData);
         fragmentBuffer.position(0);
     }
+
+
+    public void setOnRenderCreateListener(OnRenderCreateListener onRenderCreateListener) {
+        this.onRenderCreateListener = onRenderCreateListener;
+    }
+
 
     @Override
     public void onSurfaceCreated() {
@@ -139,7 +153,7 @@ public class TextureRenderWithVBOAndFBO2 implements MyEGLSurfaceView.MyRender {
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
 
         //3.设置fbo的内存大小
-        GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_RGBA,2248 ,1080, 0,GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, null);
+        GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_RGBA,1080  ,2248, 0,GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, null);
         //把纹理绑定到FBO
         GLES20.glFramebufferTexture2D(GLES20.GL_FRAMEBUFFER, GLES20.GL_COLOR_ATTACHMENT0, GLES20.GL_TEXTURE_2D, textureid, 0);
         if(GLES20.glCheckFramebufferStatus(GLES20.GL_FRAMEBUFFER) != GLES20.GL_FRAMEBUFFER_COMPLETE)
@@ -156,14 +170,26 @@ public class TextureRenderWithVBOAndFBO2 implements MyEGLSurfaceView.MyRender {
         GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, 0);
 
         imgTextureId = loadTexrute(R.drawable.androids);
+
+
+        if(onRenderCreateListener != null)
+        {
+            onRenderCreateListener.onCreate(textureid);
+        }
     }
 
     @Override
     public void onSurfaceChanged(int width, int height) {
         Log.d(TAG, "onSurfaceChanged: ");
-        GLES20.glViewport(0, 0, width, height);
-        fboRender.onChange(width, height);
+      //  GLES20.glViewport(0, 0, width, height);
+      //  fboRender.onChange(width, height);
 
+        this.width = width;
+        this.height = height;
+
+
+        width = 1080;
+        height = 2248;
 
         if(width > height)
         {
@@ -180,6 +206,7 @@ public class TextureRenderWithVBOAndFBO2 implements MyEGLSurfaceView.MyRender {
     @Override
     public void onDrawFrame() {
         Log.d(TAG, "onDrawFrame: ");
+        GLES20.glViewport(0, 0, 1080, 2248);
         GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, fboId);
 
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
@@ -210,6 +237,7 @@ public class TextureRenderWithVBOAndFBO2 implements MyEGLSurfaceView.MyRender {
         //解绑vbo
         GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
 
+        GLES20.glViewport(0, 0, width, height);
         GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, 0);
 
         fboRender.onDraw(textureid);
@@ -232,4 +260,10 @@ public class TextureRenderWithVBOAndFBO2 implements MyEGLSurfaceView.MyRender {
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
         return  textureIds[0];
     }
+
+    public interface OnRenderCreateListener
+    {
+        void onCreate(int textid);
+    }
+
 }

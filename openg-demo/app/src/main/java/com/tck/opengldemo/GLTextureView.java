@@ -11,6 +11,9 @@ import android.util.AttributeSet;
  * @version 3.6
  */
 public class GLTextureView extends MyEGLSurfaceView{
+
+    private TextureRenderWithVBOAndFBO2 myRender;
+
     public GLTextureView(Context context) {
         this(context,null);
     }
@@ -21,6 +24,12 @@ public class GLTextureView extends MyEGLSurfaceView{
 
     public GLTextureView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setRender(new TextureRenderWithVBOAndFBO2(context));
+        myRender = new TextureRenderWithVBOAndFBO2(context);
+        setRender(myRender);
+    }
+
+
+    public TextureRenderWithVBOAndFBO2 getMyRender() {
+        return myRender;
     }
 }
