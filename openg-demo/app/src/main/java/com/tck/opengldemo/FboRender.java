@@ -18,6 +18,7 @@ public class FboRender {
 
     private Context context;
 
+
     private float[] vertexData = {
             -1f, -1f,
             1f, -1f,

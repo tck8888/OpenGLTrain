@@ -24,7 +24,6 @@ public class TextureRenderWithVBOAndFBO2 implements MyEGLSurfaceView.MyRender {
 
     private Context context;
 
-
     private float[] vertexData = {
             -1f, -1f,
             1f, -1f,
@@ -34,15 +33,14 @@ public class TextureRenderWithVBOAndFBO2 implements MyEGLSurfaceView.MyRender {
     private FloatBuffer vertexBuffer;
 
     private float[] fragmentData = {
-//                        0f, 1f,
-//            1f, 1f,
 //            0f, 0f,
-           // 1f, 0f
-
-            0f, 0f,
-            1f, 0f,
+//            1f, 0f,
+//            0f, 1f,
+//            1f, 1f
             0f, 1f,
-            1f, 1f
+            1f, 1f,
+            0f, 0f,
+            1f, 0f
     };
 
     private FloatBuffer fragmentBuffer;
@@ -175,6 +173,8 @@ public class TextureRenderWithVBOAndFBO2 implements MyEGLSurfaceView.MyRender {
         {
             Matrix.orthoM(matrix, 0, -1,  1, -height / ((width / 526f) * 702f), height / ((width / 526f) * 702f), -1f, 1f);
         }
+        Matrix.rotateM(matrix, 0, 180, 1, 0, 0);
+        Matrix.rotateM(matrix, 0, 180, 0, 0, 1);
     }
 
     @Override
