@@ -169,7 +169,7 @@ public class WlCameraRender implements WLEGLSurfaceView.WlGLRender, SurfaceTextu
 
         if(onSurfaceCreateListener != null)
         {
-            onSurfaceCreateListener.onSurfaceCreate(surfaceTexture);
+            onSurfaceCreateListener.onSurfaceCreate(surfaceTexture, fboTextureid);
         }
         GLES20.glBindTexture(GLES11Ext.GL_TEXTURE_EXTERNAL_OES, 0);
     }
@@ -222,9 +222,13 @@ public class WlCameraRender implements WLEGLSurfaceView.WlGLRender, SurfaceTextu
 
     }
 
+    public int getFboTextureid() {
+        return fboTextureid;
+    }
+
     public interface OnSurfaceCreateListener
     {
-        void onSurfaceCreate(SurfaceTexture surfaceTexture);
+        void onSurfaceCreate(SurfaceTexture surfaceTexture, int textureId);
     }
 
 }

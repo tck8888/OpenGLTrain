@@ -25,12 +25,20 @@ public class MainActivity extends AppCompatActivity {
 
         // Example of a call to a native method
         TextView tv = findViewById(R.id.sample_text);
+        TextView tv2 = findViewById(R.id.sample_text2);
         tv.setText(stringFromJNI());
 
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 cameraPreview();
+            }
+        });
+        tv2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, VideoActivity.class);
+                startActivity(intent);
             }
         });
     }

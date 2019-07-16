@@ -24,6 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".CameraActivity" android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity android:name=".VideoActivity" />
     </application>
 
 </manifest>
