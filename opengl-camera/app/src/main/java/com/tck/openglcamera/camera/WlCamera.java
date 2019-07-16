@@ -13,10 +13,15 @@ public class WlCamera {
     private static final String TAG = "WlCamera";
     private Camera camera;
 
+    private int width;
+    private int height;
+
+    private SurfaceTexture surfaceTexture;
+
     public WlCamera() {
     }
 
-    private SurfaceTexture surfaceTexture;
+
 
     public void initCamera(SurfaceTexture surfaceTexture, int cameraId) {
         this.surfaceTexture = surfaceTexture;
@@ -39,21 +44,13 @@ public class WlCamera {
 
             parameters.setFlashMode("off");
             parameters.setPreviewFormat(ImageFormat.NV21);
-            List<Camera.Size> supportedPictureSizes = parameters.getSupportedPictureSizes();
-            for (int i = 0; i < supportedPictureSizes.size(); i++) {
-                Log.d(TAG, "setCameraParm: supportedPictureSizes width= " + supportedPictureSizes.get(i).width + " height= " + supportedPictureSizes.get(i).height);
-            }
 
-            parameters.setPictureSize(supportedPictureSizes.get(0).width,
-                    supportedPictureSizes.get(0).height);
-            List<Camera.Size> supportedPreviewSizes = parameters.getSupportedPreviewSizes();
-            Log.d(TAG, "setCameraParm: ==================");
-            for (int i = 0; i < supportedPreviewSizes.size(); i++) {
-                Log.d(TAG, "setCameraParm: supportedPreviewSizes width= " + supportedPreviewSizes.get(i).width + " height= " + supportedPreviewSizes.get(i).height);
-            }
+            Camera.Size size = getFitSize(parameters.getSupportedPictureSizes());
+            parameters.setPictureSize(size.width, size.height);
 
-            parameters.setPreviewSize(supportedPreviewSizes.get(0).width,
-                    supportedPreviewSizes.get(0).height);
+            size = getFitSize(parameters.getSupportedPreviewSizes());
+            parameters.setPreviewSize(size.width, size.height);
+
             camera.setParameters(parameters);
             camera.startPreview();
 
@@ -76,5 +73,25 @@ public class WlCamera {
         }
         setCameraParm(cameraId);
     }
+
+    private Camera.Size getFitSize(List<Camera.Size> sizes)
+    {
+        if(width < height)
+        {
+            int t = height;
+            height = width;
+            width = t;
+        }
+
+        for(Camera.Size size : sizes)
+        {
+            if(1.0f * size.width / size.height == 1.0f * width / height)
+            {
+                return size;
+            }
+        }
+        return sizes.get(0);
+    }
+
 
 }

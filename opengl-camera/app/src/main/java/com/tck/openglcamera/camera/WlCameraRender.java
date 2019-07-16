@@ -4,12 +4,14 @@ import android.content.Context;
 import android.graphics.SurfaceTexture;
 import android.opengl.GLES11Ext;
 import android.opengl.GLES20;
+import android.opengl.Matrix;
 import android.util.Log;
 
 
 import com.tck.openglcamera.R;
 import com.tck.openglcamera.egl.WLEGLSurfaceView;
 import com.tck.openglcamera.egl.WlShaderUtil;
+import com.tck.openglcamera.util.DisplayUtil;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -44,14 +46,28 @@ public class WlCameraRender implements WLEGLSurfaceView.WlGLRender, SurfaceTextu
     private int fboTextureid;
     private int cameraTextureid;
 
+    private int umatrix;
+    private float[] matrix = new float[16];
+
     private SurfaceTexture surfaceTexture;
     private OnSurfaceCreateListener onSurfaceCreateListener;
 
     private WlCameraFboRender wlCameraFboRender;
 
+    private int screenWidth;
+    private int screenHeight;
+
+    private int width;
+    private int height;
+
 
     public WlCameraRender(Context context) {
         this.context = context;
+
+        screenWidth = DisplayUtil.getScreenWidth(context);
+        screenHeight = DisplayUtil.getScreenHeight(context);
+
+
         wlCameraFboRender = new WlCameraFboRender(context);
         vertexBuffer = ByteBuffer.allocateDirect(vertexData.length * 4)
                 .order(ByteOrder.nativeOrder())
@@ -72,6 +88,18 @@ public class WlCameraRender implements WLEGLSurfaceView.WlGLRender, SurfaceTextu
         this.onSurfaceCreateListener = onSurfaceCreateListener;
     }
 
+    public void resetMatrix()
+    {
+        Matrix.setIdentityM(matrix, 0);
+    }
+
+    public void setAngle(float angle, float x, float y, float z)
+    {
+        Matrix.rotateM(matrix, 0, angle, x, y, z);
+    }
+
+
+
     @Override
     public void onSurfaceCreated() {
 
@@ -82,6 +110,7 @@ public class WlCameraRender implements WLEGLSurfaceView.WlGLRender, SurfaceTextu
         program = WlShaderUtil.createProgram(vertexSource, fragmentSource);
         vPosition = GLES20.glGetAttribLocation(program, "v_Position");
         fPosition = GLES20.glGetAttribLocation(program, "f_Position");
+        umatrix = GLES20.glGetUniformLocation(program, "u_Matrix");
 
         //vbo
         int [] vbos = new int[1];
@@ -111,7 +140,7 @@ public class WlCameraRender implements WLEGLSurfaceView.WlGLRender, SurfaceTextu
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
 
-        GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_RGBA, 720, 1280, 0, GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, null);
+        GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_RGBA, screenWidth, screenHeight, 0, GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, null);
         GLES20.glFramebufferTexture2D(GLES20.GL_FRAMEBUFFER, GLES20.GL_COLOR_ATTACHMENT0, GLES20.GL_TEXTURE_2D, fboTextureid, 0);
         if(GLES20.glCheckFramebufferStatus(GLES20.GL_FRAMEBUFFER) != GLES20.GL_FRAMEBUFFER_COMPLETE)
         {
@@ -147,8 +176,10 @@ public class WlCameraRender implements WLEGLSurfaceView.WlGLRender, SurfaceTextu
 
     @Override
     public void onSurfaceChanged(int width, int height) {
-        wlCameraFboRender.onChange(width, height);
-        GLES20.glViewport(0, 0, width, height);
+      //  wlCameraFboRender.onChange(width, height);
+       // GLES20.glViewport(0, 0, width, height);
+        this.width = width;
+        this.height = height;
     }
 
     @Override
@@ -159,6 +190,10 @@ public class WlCameraRender implements WLEGLSurfaceView.WlGLRender, SurfaceTextu
         GLES20.glClearColor(1f,0f, 0f, 1f);
 
         GLES20.glUseProgram(program);
+
+        GLES20.glViewport(0, 0, screenWidth, screenHeight);
+        GLES20.glUniformMatrix4fv(umatrix, 1, false, matrix, 0);
+
         GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, fboId);
         GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, vboId);
 
@@ -175,6 +210,7 @@ public class WlCameraRender implements WLEGLSurfaceView.WlGLRender, SurfaceTextu
         GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
 
         GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, 0);
+        wlCameraFboRender.onChange(width, height);
         wlCameraFboRender.onDraw(fboTextureid);
 
 

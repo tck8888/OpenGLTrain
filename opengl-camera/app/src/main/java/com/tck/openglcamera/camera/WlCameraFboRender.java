@@ -58,7 +58,7 @@ public class WlCameraFboRender {
 
     public void onCreate()
     {
-        String vertexSource = WlShaderUtil.getRawResource(context, R.raw.vertex_shader);
+        String vertexSource = WlShaderUtil.getRawResource(context, R.raw.vertex_shader_screen);
         String fragmentSource = WlShaderUtil.getRawResource(context, R.raw.fragment_shader_screen);
 
         program = WlShaderUtil.createProgram(vertexSource, fragmentSource);

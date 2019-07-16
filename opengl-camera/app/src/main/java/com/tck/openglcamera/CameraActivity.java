@@ -1,5 +1,6 @@
 package com.tck.openglcamera;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -30,5 +31,11 @@ public class CameraActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         wlCameraView.onDestory();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        wlCameraView.previewAngle(this);
     }
 }
