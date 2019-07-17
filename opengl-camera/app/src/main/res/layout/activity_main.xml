@@ -10,7 +10,7 @@
         android:id="@+id/sample_text"
         android:layout_width="wrap_content"
         android:layout_height="100dp"
-        android:text="CameraActivity"
+        android:text="摄像头预览"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -21,10 +21,19 @@
         android:id="@+id/sample_text2"
         android:layout_width="wrap_content"
         android:layout_height="100dp"
-        android:text="VideoActivity"
+        android:text="视频编码录制"
         android:gravity="center"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sample_text" />
+    <TextView
+        android:id="@+id/sample_text3"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:text="图片生成视频"
+        android:gravity="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sample_text2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

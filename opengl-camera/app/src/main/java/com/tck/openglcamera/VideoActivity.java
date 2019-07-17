@@ -102,7 +102,7 @@ public class VideoActivity extends AppCompatActivity {
 
         if(wlMediaEncodec == null)
         {
-            wlMusic.setSource(Environment.getExternalStorageDirectory().getAbsolutePath() + "/小倩 - 不仅仅是喜欢.mps");
+            wlMusic.setSource(Environment.getExternalStorageDirectory().getAbsolutePath() + "/小倩 - 不仅仅是喜欢.mp3");
             wlMusic.prePared();
             btnRecord.setText("正在录制");
         }

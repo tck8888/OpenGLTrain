@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         // Example of a call to a native method
         TextView tv = findViewById(R.id.sample_text);
         TextView tv2 = findViewById(R.id.sample_text2);
+        TextView tv3 = findViewById(R.id.sample_text3);
 
 
         tv.setOnClickListener(new View.OnClickListener() {
@@ -33,6 +34,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, VideoActivity.class);
+                startActivity(intent);
+            }
+        });
+        tv3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ImageVideoActivity.class);
                 startActivity(intent);
             }
         });
@@ -61,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
         ) {
             Intent intent = new Intent(this, CameraActivity.class);
             startActivity(intent);
-        }else {
-            ActivityCompat.requestPermissions(this,new String[]{
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{
                     Manifest.permission.CAMERA,
                     Manifest.permission.RECORD_AUDIO,
                     Manifest.permission.READ_EXTERNAL_STORAGE,
