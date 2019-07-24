@@ -22,5 +22,12 @@ android {
 dependencies {
     implementation project(path: ':common')
 
+    if (CAMERAPREVIEW_IS_APP.toBoolean()){
+        implementation project(path: ':common')
+    }else {
+        implementation project(path: ':camerapreview')
+    }
+
+
 }
 

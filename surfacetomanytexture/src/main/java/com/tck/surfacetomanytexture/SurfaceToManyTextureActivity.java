@@ -1,14 +1,13 @@
 package com.tck.surfacetomanytexture;
 
 import android.os.Bundle;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.tck.common.OnRenderCreateListener;
-import com.tck.common.YGlSurfaceView;
+import com.tck.common.YGLSurfaceView;
 
 
 /**
@@ -20,7 +19,7 @@ import com.tck.common.YGlSurfaceView;
  */
 public class SurfaceToManyTextureActivity extends AppCompatActivity {
 
-    private YGlSurfaceView surfaceView;
+    private YGLSurfaceView surfaceView;
     private LinearLayout llContent;
     private SurfaceToManyTextureRender abstractBaseRender;
 
@@ -30,7 +29,7 @@ public class SurfaceToManyTextureActivity extends AppCompatActivity {
         setContentView(R.layout.activity_surfacetomanytexture);
 
 
-        surfaceView = (YGlSurfaceView) findViewById(R.id.surface_view);
+        surfaceView = (YGLSurfaceView) findViewById(R.id.surface_view);
         llContent = (LinearLayout) findViewById(R.id.ll_content);
 
         abstractBaseRender = new SurfaceToManyTextureRender(this);

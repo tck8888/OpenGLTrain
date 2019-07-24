@@ -3,6 +3,7 @@ package com.tck.common;
 import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
+import android.opengl.Matrix;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -17,6 +18,7 @@ import javax.microedition.khronos.opengles.GL10;
 public abstract class AbstractBaseRender implements GLSurfaceView.Renderer {
 
     public Context context;
+    public float[] matrix = new float[16];
 
     public AbstractBaseRender(Context context) {
         this.context = context;
@@ -46,7 +48,26 @@ public abstract class AbstractBaseRender implements GLSurfaceView.Renderer {
 
     public OnRenderCreateListener onRenderCreateListener;
 
+
+
     public void setOnRenderCreateListener(OnRenderCreateListener onRenderCreateListener) {
         this.onRenderCreateListener = onRenderCreateListener;
+    }
+
+
+    public OnSurfaceCreateListener onSurfaceCreateListener;
+
+    public void setOnSurfaceCreateListener(OnSurfaceCreateListener onSurfaceCreateListener) {
+        this.onSurfaceCreateListener = onSurfaceCreateListener;
+    }
+
+    public void resetMatrix()
+    {
+        Matrix.setIdentityM(matrix, 0);
+    }
+
+    public void setAngle(float angle, float x, float y, float z)
+    {
+        Matrix.rotateM(matrix, 0, angle, x, y, z);
     }
 }

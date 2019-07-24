@@ -1,1 +1,1 @@
-include ':app', ':common', ':renderpic', ':vbo', ':fbo',':surfacetomanytexture'
+include ':app', ':common', ':renderpic', ':vbo', ':fbo',':surfacetomanytexture', ':camerapreview'

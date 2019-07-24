@@ -5,7 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.tck.common.YGlSurfaceView;
+import com.tck.common.YGLSurfaceView;
 
 
 /**
@@ -17,13 +17,13 @@ import com.tck.common.YGlSurfaceView;
  */
 public class FBOActivity extends AppCompatActivity {
 
-    private YGlSurfaceView surfaceView;
+    private YGLSurfaceView surfaceView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fbo);
-        surfaceView = (YGlSurfaceView) findViewById(R.id.surface_view);
+        surfaceView = (YGLSurfaceView) findViewById(R.id.surface_view);
         surfaceView.setAbstractBaseRender(new FBORenderTrain(this));
     }
 }

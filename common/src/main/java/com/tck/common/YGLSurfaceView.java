@@ -11,20 +11,18 @@ import android.util.AttributeSet;
  * @author tck
  * @version 1.0
  */
-public class YGlSurfaceView extends GLSurfaceView {
+public class YGLSurfaceView extends GLSurfaceView {
 
-    private AbstractBaseRender abstractBaseRender;
-    private Context context;
+    public AbstractBaseRender abstractBaseRender;
 
-    public YGlSurfaceView(Context context) {
-        this(context, null);
 
+    public YGLSurfaceView(Context context) {
+        super(context);
+        setEGLContextClientVersion(2);
     }
 
-
-    public YGlSurfaceView(Context context, AttributeSet attrs) {
+    public YGLSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.context = context;
         setEGLContextClientVersion(2);
     }
 
