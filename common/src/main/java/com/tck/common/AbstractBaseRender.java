@@ -43,4 +43,10 @@ public abstract class AbstractBaseRender implements GLSurfaceView.Renderer {
 
     protected abstract void onDrawFrame();
 
+
+    public OnRenderCreateListener onRenderCreateListener;
+
+    public void setOnRenderCreateListener(OnRenderCreateListener onRenderCreateListener) {
+        this.onRenderCreateListener = onRenderCreateListener;
+    }
 }
