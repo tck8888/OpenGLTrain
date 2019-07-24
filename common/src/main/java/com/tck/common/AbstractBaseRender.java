@@ -1,6 +1,7 @@
 package com.tck.common;
 
 import android.content.Context;
+import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -41,4 +42,5 @@ public abstract class AbstractBaseRender implements GLSurfaceView.Renderer {
     protected abstract void onSurfaceChanged(int width, int height);
 
     protected abstract void onDrawFrame();
+
 }

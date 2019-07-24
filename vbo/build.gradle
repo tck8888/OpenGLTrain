@@ -1,4 +1,4 @@
-if (RENDER_PIC_IS_APP.toBoolean()) {
+if (VBO_IS_APP.toBoolean()) {
     apply plugin: 'com.android.application'
 } else {
     apply plugin: 'com.android.library'
@@ -26,10 +26,10 @@ android {
 
     sourceSets {
         main {
-            if (RENDER_PIC_IS_APP.toBoolean()) {
-                manifest.srcFile 'src/main/AndroidManifest.xml'
-            } else {
+            if (VBO_IS_APP.toBoolean()) {
                 manifest.srcFile 'src/main/module/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
             }
         }
     }
