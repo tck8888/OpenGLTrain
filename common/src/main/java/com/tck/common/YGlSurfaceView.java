@@ -12,21 +12,27 @@ import android.util.AttributeSet;
  * @version 1.0
  */
 public class YGlSurfaceView extends GLSurfaceView {
+
+    private AbstractBaseRender abstractBaseRender;
+    private Context context;
+
     public YGlSurfaceView(Context context) {
-        super(context);
-        init(context);
+        this(context, null);
+
     }
 
 
     public YGlSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
-
-        init(context);
+        this.context = context;
+        setEGLContextClientVersion(2);
     }
 
-    private void init(Context context) {
-        //setRender(new WlRender());
-       // setRenderMode(WLEGLSurfaceView.RENDERMODE_WHEN_DIRTY);
-    }
+    public void setAbstractBaseRender(AbstractBaseRender abstractBaseRender) {
+        this.abstractBaseRender = abstractBaseRender;
 
+        if (this.abstractBaseRender != null) {
+            setRenderer(abstractBaseRender);
+        }
+    }
 }
