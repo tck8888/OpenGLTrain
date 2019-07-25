@@ -46,9 +46,8 @@ public class YCamera {
             camera = Camera.open(cameraId);
             camera.setPreviewTexture(surfaceTexture);
             Camera.Parameters parameters = camera.getParameters();
-
             parameters.setFlashMode("off");
-            parameters.setPreviewFormat(ImageFormat.NV21);
+
 
             preSize = getPropPreviewSize(parameters.getSupportedPreviewSizes(), rate,
                     minPictureWidth);
