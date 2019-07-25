@@ -5,6 +5,8 @@ import android.hardware.Camera;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 
+import com.tck.common.GLBitmapUtils;
+
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
@@ -47,16 +49,24 @@ public class TRender implements GLSurfaceView.Renderer, SurfaceTexture.OnFrameAv
         mCameraFilter = new CameraFilter(tglSurfaceView.getContext());
         mScreenFilter = new ScreenFilter(tglSurfaceView.getContext());
         beautyFilter = new BeautyFilter(tglSurfaceView.getContext());
+        // magicBeautyFilter = new MagicBeautyFilter(tglSurfaceView.getContext());
     }
 
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
 //开启预览
-        mCameraHelper.startPreview(mSurfaceTexture,width,height);
-        mCameraFilter.onReady(width,height);
-        mScreenFilter.onReady(width,height);
-        beautyFilter.onReady(width,height);
+        mCameraHelper.startPreview(mSurfaceTexture, width, height);
+        mCameraFilter.onReady(width, height);
+        mScreenFilter.onReady(width, height);
+        beautyFilter.onReady(width, height);
+        //magicBeautyFilter.onReady(width, height);
+        mWidth = width;
+        mHeight = height;
+
     }
+
+    private int mWidth;
+    private int mHeight;
 
     @Override
     public void onDrawFrame(GL10 gl) {
@@ -81,10 +91,22 @@ public class TRender implements GLSurfaceView.Renderer, SurfaceTexture.OnFrameAv
         // id = 效果2.onDrawFrame(id);
         //....
         //加完之后再显示到屏幕中去
-        int beautyId = beautyFilter.onDrawFrame(id);
+        id = beautyFilter.onDrawFrame(id);
 
-        mScreenFilter.onDrawFrame(beautyId);
+        mScreenFilter.onDrawFrame(id);
+
+        if (isTakePicture) {
+            GLBitmapUtils.saveImage(mWidth,mHeight,tglSurfaceView.getContext());
+            isTakePicture = false;
+        }
     }
+
+    private boolean isTakePicture = false;
+
+    public void savePicture() {
+        isTakePicture = true;
+    }
+
 
     @Override
     public void onFrameAvailable(SurfaceTexture surfaceTexture) {

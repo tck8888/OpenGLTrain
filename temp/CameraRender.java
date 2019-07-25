@@ -8,7 +8,6 @@ import android.util.Log;
 
 import com.tck.common.AbstractBaseRender;
 import com.tck.common.DisplayUtil;
-import com.tck.common.MyLog;
 import com.tck.common.ShaderUtils;
 
 import java.nio.ByteBuffer;

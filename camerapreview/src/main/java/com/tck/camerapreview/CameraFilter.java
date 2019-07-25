@@ -90,4 +90,6 @@ public class CameraFilter extends AbstractFrameFilter {
     public void setMatrix(float[] matrix) {
         this.matrix = matrix;
     }
+
+
 }

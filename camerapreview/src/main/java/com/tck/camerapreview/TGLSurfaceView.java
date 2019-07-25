@@ -34,4 +34,8 @@ public class TGLSurfaceView extends GLSurfaceView {
         super.surfaceDestroyed(holder);
         renderer.onSurfaceDestroyed();
     }
+
+    public void savePic(){
+        renderer.savePicture();
+    }
 }
